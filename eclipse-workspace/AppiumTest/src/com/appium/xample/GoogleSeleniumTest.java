@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.WebElement;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GoogleSeleniumTest {
 	
 	static WebDriver driver;
@@ -33,7 +36,7 @@ public class GoogleSeleniumTest {
 	
 	//verify title for Google Web Page
 	@Test
-	public void verifyGoogleHomePageTitle() {
+	public void AverifyGoogleHomePageTitle() {
 		
 		System.out.println("In verify title test case");
 		String title = driver.getTitle();
@@ -48,7 +51,7 @@ public class GoogleSeleniumTest {
 	
 	//verify tag for search button
 	@Test
-	public void verifySearchButtonTag() {
+	public void BverifySearchButtonTag() {
 		
 		System.out.println("In verify search button tag test case");
 		String expected_tag = "input";
@@ -64,7 +67,7 @@ public class GoogleSeleniumTest {
 	
 	//verify value for search button
 	@Test
-	public void verifySearchButtonValue() {
+	public void CverifySearchButtonValue() {
 		
 		System.out.println("In verify search button value test case");
 		String expected_value = "Google Search";
@@ -80,7 +83,7 @@ public class GoogleSeleniumTest {
 	
 	//verify tag for I'm Feeling Lucky Button
 	@Test
-	public void verifyImFeelingLuckyButtonTag() {
+	public void DverifyImFeelingLuckyButtonTag() {
 		
 		System.out.println("In verify I'm Feeling Lucky button tag test case");
 		String expected_tag = "input";
@@ -96,7 +99,7 @@ public class GoogleSeleniumTest {
 	
 	//verify value for I'm Feeling Lucky button
 	@Test
-	public void verifyImFeelingLuckyButtonValue() {
+	public void EverifyImFeelingLuckyButtonValue() {
 		
 		System.out.println("In verify I'm Feeling Lucky button value test case");
 		String expected_value = "I'm Feeling Lucky";
@@ -112,7 +115,7 @@ public class GoogleSeleniumTest {
 	
 	//verify tag for search bar
 	@Test
-	public void verifySearchBarTag() {
+	public void FverifySearchBarTag() {
 		
 		System.out.println("In verify search bar tag test case");
 		String expected_tag = "input";
@@ -128,7 +131,7 @@ public class GoogleSeleniumTest {
 	
 	//verify title for search bar
 	@Test
-	public void verifySearchBarTitle() {
+	public void GverifySearchBarTitle() {
 		
 		System.out.println("In verify search bar title test case");
 		String expected_value = "Search";
@@ -144,7 +147,7 @@ public class GoogleSeleniumTest {
 	
 	//verify name for search bar
 	@Test 
-	public void verifySearchBarName() {
+	public void HverifySearchBarName() {
 		
 		System.out.println("In verify search bar name test case");
 		String expected_value = "q";
@@ -160,10 +163,11 @@ public class GoogleSeleniumTest {
 	
 	//type contents into search bar, verify the contents
 	@Test
-	public void verifySearchBarContents() {
+	public void IverifySearchBarContents() {
 		
 		System.out.println("In verify search bar contents test case");
 		driver.findElement(By.className("gLFyf")).sendKeys("Testing Contents");
+		driver.findElement(By.className("gLFyf")).submit();
 		String expected_value = "Testing Contents";
 		String actual_value = driver.findElement(By.className("gLFyf")).getAttribute("value");
 		assertEquals(expected_value, actual_value);
@@ -176,6 +180,111 @@ public class GoogleSeleniumTest {
 		
 	}
 	
+	//verify the new title on the google search page
+	@Test
+	public void JverifyGoogleSearchPageTitle() {
+		
+		System.out.println("In verify search title test case");
+		String title = driver.getTitle();
+		assertTrue(title.contains("Testing Contents - Google Search"));
+		
+		if(title.contains("Testing Contents - Google Search"))
+			System.out.println("Title: " + title);
+		System.out.println("Exiting verify search title test case");
+		System.out.println();
+		
+	}
+	
+	//verify the clear button clears the contents in the google search bar
+	@Test
+	public void KverifyClearSearchBarContents() {
+		System.out.println("In verify clear search bar contents test case");
+		driver.findElement(By.className("clear-button")).click();
+		String expected_value = "";
+		String actual_value = driver.findElement(By.className("gLFyf")).getAttribute("value");
+		assertEquals(expected_value, actual_value);
+		
+		if(actual_value.isEmpty())
+			System.out.println("Search bar is empty");
+			System.out.println("Exiting verify clear search bar contents test case");
+			System.out.println();
+		
+		
+	}
+	
+	//verify the new search bar contents
+	@Test
+	public void LverifySearchBarContents() {
+		
+		System.out.println("In verify search bar contents test case 2");
+		driver.findElement(By.className("gLFyf")).sendKeys("Testing Contents 2");
+		driver.findElement(By.className("gLFyf")).submit();
+		String expected_value = "Testing Contents 2";
+		String actual_value = driver.findElement(By.className("gLFyf")).getAttribute("value");
+		assertEquals(expected_value, actual_value);
+		
+		
+		if(actual_value.contains("Testing Contents 2"))
+			System.out.println("Search bar contents: " + actual_value);
+		System.out.println("Exiting verify search bar contents test case 2");
+		System.out.println();
+		
+	}
+	
+	//verify the new google search page title 
+	@Test
+	public void MverifyGoogleSearchPageTitle() {
+		
+		System.out.println("In verify search title test case 2");
+		String title = driver.getTitle();
+		assertTrue(title.contains("Testing Contents 2 - Google Search"));
+		
+		if(title.contains("Testing Contents 2 - Google Search"))
+			System.out.println("Title: " + title);
+		System.out.println("Exiting verify search title test case 2");
+		System.out.println();
+		
+	}
+	
+	//click the google search bar and verify its class name
+	@Test
+	public void NClickGoogleSearchBar() {
+		
+		System.out.println("In click google search bar test case");
+		
+		driver.findElement(By.className("gLFyf")).click();
+		
+		String expected_value = "gLFyf";
+		String actual_value = driver.findElement(By.className("gLFyf")).getAttribute("class");
+		assertEquals(expected_value, actual_value);
+		
+		if(actual_value.contains("gLFyf"))
+			System.out.println("Search bar class name: " + actual_value);
+		System.out.println("Exiting click google search bar test case");
+		System.out.println();
+		
+	}
+	
+	//verify clearing the search bar using selenium's clear() function
+	@Test
+	public void OClearSearchBarContents() {
+		
+		System.out.println("In clear search bar test case");
+		
+		driver.findElement(By.className("gLFyf")).clear();
+		
+		String expected_value = "";
+		String actual_value = driver.findElement(By.className("gLFyf")).getAttribute("value");
+		assertEquals(expected_value, actual_value);
+		
+		if(actual_value.isEmpty())
+			System.out.println("Search bar empty");
+		System.out.println("Exiting clear search bar test case");
+		System.out.println();
+		
+	}
+	
+	//tear down the created driver when the tests finish running 
 	@AfterClass
 	public static void tearDown() throws InterruptedException {
 		Thread.sleep(2000);
